@@ -1,10 +1,11 @@
-import { Button, ListGroup } from 'react-bootstrap'
+import { ListGroup } from 'react-bootstrap'
 
+// Mostra un singolo commento, con il rating in un badge e una X per cancellarlo
+const SingleComment = ({ comment, onCommentDeleted }) => {
 
-// Mostra un singolo commento, con un bottone per cancellarlo
-const SingleComment = ({ comment }) => {
-  //Gestiamo la cancellazione del commento
-  // Funzione con try catch per gestire anche gli errori. Se cancella il commento chiamando l'API (richiesta DELETE), si ha un messaggio, se no un mex di errore (in questo caso gestiamo solo un avviso e non l'errore in se quindi niente retry, niente fallack ecc)
+  // Try/catch intercetta eventuali errori di rete/fetch, evitando che l'app si blocchi.
+  // Non risolve l'errore: lo gestiamo solo mostrando un avviso generico all'utente,
+  // senza distinguere il tipo di errore reale (rete, server, auth, ecc.)
   const deleteComment = async (id) => {
     try {
       let response = await fetch(
@@ -18,6 +19,7 @@ const SingleComment = ({ comment }) => {
       )
       if (response.ok) {
         alert('Commento cancellato... come Alderaan.')
+        onCommentDeleted()
       } else {
         alert('Il Lato Oscuro ha bloccato la cancellazione')
       }
@@ -25,18 +27,18 @@ const SingleComment = ({ comment }) => {
       alert('Il Lato Oscuro ha bloccato la cancellazione')
     }
   }
-//Mostriamo il commento 
+
   return (
-    <ListGroup.Item>
-      {comment.comment}
-      <Button
-        variant="danger"
-        className="ml-2"
-        // Al click, chiama deleteComment passando l'id di QUESTO commento
+    <ListGroup.Item className="comment-item">
+      <span className="rating-badge">{comment.rate}</span>
+      <span className="comment-text">{comment.comment}</span>
+      <button
+        className="delete-x"
         onClick={() => deleteComment(comment._id)}
+        aria-label="Delete comment"
       >
-        Delete
-      </Button>
+        &times;
+      </button>
     </ListGroup.Item>
   )
 }

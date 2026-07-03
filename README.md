@@ -4,15 +4,16 @@
 
 ```
 App
-├── MyNav          (statico)
-├── Search         (input di ricerca)
-├── Gallery        
-│   └── SingleMovie
-│       └── CommentArea
-│           ├── AddComment
-│           └── CommentList
-│               └── SingleComment
-└── MyFooter        (statico)
+├── MyNav
+├── Search
+├── Gallery
+│   └── MovieRow
+│       └── SingleMovie
+│           └── CommentArea
+│               ├── AddComment
+│               └── CommentList
+│                   └── SingleComment
+└── MyFooter
 ```
 # LISTA
 
