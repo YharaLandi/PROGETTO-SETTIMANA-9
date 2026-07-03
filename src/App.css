@@ -1,0 +1,360 @@
+/* ==========================================================
+   EPIFLIX — override CSS sopra le classi di react-bootstrap
+   Palette e layout ispirati allo screenshot Netflix fornito
+   ========================================================== */
+
+:root {
+  --netflix-black: #141414;
+  --netflix-dark-gray: #1f1f1f;
+  --netflix-red: #e50914;
+  --netflix-text-muted: #808080;
+}
+
+body {
+  background-color: var(--netflix-black);
+  color: #ffffff;
+}
+
+/* ---------- Navbar ---------- */
+
+.netflix-nav {
+  background-color: var(--netflix-black) !important;
+  padding: 0.75rem 2rem;
+}
+
+.netflix-brand {
+  color: var(--netflix-red) !important;
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.netflix-links .nav-link {
+  color: #e5e5e5 !important;
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
+
+.netflix-links .nav-link:hover {
+  color: #ffffff !important;
+}
+
+.netflix-genres .dropdown-toggle {
+  color: #e5e5e5 !important;
+  font-size: 0.9rem;
+}
+
+.netflix-icons {
+  margin-left: auto;
+  flex-direction: row;
+  align-items: center;
+}
+
+.netflix-icons .nav-link {
+  color: #e5e5e5 !important;
+  font-size: 1.1rem;
+  padding: 0 0.5rem;
+}
+
+/* ---------- Footer ---------- */
+
+.netflix-footer {
+  background-color: var(--netflix-black) !important;
+  padding: 3rem 2rem;
+}
+
+.netflix-footer span {
+  color: var(--netflix-text-muted) !important;
+}
+
+/* ---------- Gallery (riga per saga/ricerca) ---------- */
+
+.gallery {
+  padding: 0 2rem;
+  margin-bottom: 2rem;
+}
+
+.gallery-title {
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/* Le card vanno a capo su più righe (comportamento standard di Row bootstrap) */
+.movie-row {
+  padding-bottom: 1rem;
+}
+
+/* Diamo un po' di respiro extra in alto/basso per lasciare spazio
+   allo zoom dei poster senza che vengano tagliati dal contenitore */
+.movie-row .col,
+.movie-row [class*='col-'] {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+/* ---------- SingleMovie (poster + card) ---------- */
+
+.movie-card {
+  position: relative;
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s;
+}
+
+/* L'ingrandimento all'hover richiesto: la card cresce leggermente
+   e viene portata sopra le altre, con un'ombra per dare profondità */
+.movie-card:hover {
+  transform: scale(1.08);
+  z-index: 5;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+}
+
+.movie-card .card-img-top {
+  border-radius: 4px;
+  display: block;
+  width: 100%;
+}
+
+/* Il titolo resta nel markup per l'accessibilità (screen reader),
+   ma non viene mostrato visivamente: qui i poster sono locandine
+   originali intere, il titolo è già leggibile nella grafica stessa */
+.movie-card .card-body {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.movie-card-title {
+  color: #ffffff !important;
+}
+
+/* ==========================================================
+   Modale commenti — sfondo bianco, stile "Movie comments"
+   ========================================================== */
+
+.comments-modal .modal-content {
+  background-color: #ffffff;
+  color: #141414;
+  border-radius: 8px;
+}
+
+.comments-modal .modal-header {
+  border-bottom: none;
+  padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.comments-modal .modal-title {
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.comments-modal .modal-body {
+  padding: 0.5rem 1.5rem 1.5rem;
+}
+
+.comments-body {
+  text-align: left;
+}
+
+/* Singolo commento: badge rating + testo + X per cancellare, in riga */
+.comment-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: none;
+  border-bottom: 1px solid #eee;
+  padding: 0.75rem 0.25rem;
+}
+
+.rating-badge {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #17a2b8;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comment-text {
+  flex-grow: 1;
+  color: #141414;
+}
+
+.delete-x {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: #999;
+  cursor: pointer;
+  padding: 0 0.25rem;
+}
+
+.delete-x:hover {
+  color: var(--netflix-red);
+}
+
+/* Form "Add a comment" */
+.add-comment-title {
+  text-align: center;
+  font-weight: 700;
+  margin: 1.5rem 0 1rem;
+}
+
+.rating-radios {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.comment-input {
+  border-radius: 20px;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ddd;
+}
+
+.submit-comment {
+  display: block;
+  margin: 1rem auto 0;
+  background-color: #0d6efd;
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 2rem;
+}
+
+/* ==========================================================
+   Header di pagina — titolo sezione + dropdown Genres
+   ========================================================== */
+
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 2rem 0.5rem;
+}
+
+.page-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.page-header .dropdown-toggle {
+  background-color: transparent;
+  border: 1px solid #808080;
+  color: #ffffff;
+}
+
+/* ==========================================================
+   Footer — icone social + griglia di link, stile Netflix
+   ========================================================== */
+
+.netflix-footer {
+  display: block;
+  text-align: center;
+}
+
+.netflix-footer .social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.netflix-footer .social-icons a {
+  color: var(--netflix-text-muted);
+  text-decoration: none;
+}
+
+.netflix-footer .social-icons a:hover {
+  color: #ffffff;
+}
+
+.netflix-footer .footer-links {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(150px, 200px));
+  justify-content: center;
+  gap: 0.5rem 3rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.netflix-footer .footer-links a {
+  display: block;
+  color: var(--netflix-text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.netflix-footer .footer-links a:hover {
+  text-decoration: underline;
+}
+
+.netflix-footer .service-code {
+  background-color: transparent;
+  border: 1px solid var(--netflix-text-muted);
+  color: var(--netflix-text-muted);
+  padding: 0.4rem 1rem;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.netflix-footer .copyright {
+  color: var(--netflix-text-muted);
+  font-size: 0.75rem;
+}
+
+/* ==========================================================
+   Search dentro la navbar — versione compatta
+   Search.jsx resta invariato: qui adattiamo solo l'aspetto
+   quando è annidato dentro .netflix-nav-search
+   ========================================================== */
+
+.netflix-nav-search {
+  flex-grow: 0;
+  width: 260px;
+  margin: 0 1rem;
+}
+
+.netflix-nav-search .form-label {
+  display: none;
+}
+
+.netflix-nav-search .row {
+  margin: 0;
+}
+
+.netflix-nav-search .col {
+  padding: 0;
+}
+
+.netflix-nav-search .form-control {
+  background-color: #333333;
+  border: none;
+  color: #ffffff;
+  font-size: 0.85rem;
+}
+
+.netflix-nav-search .form-control::placeholder {
+  color: #b3b3b3;
+}
