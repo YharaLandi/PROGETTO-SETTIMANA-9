@@ -83,20 +83,35 @@ if (response.ok) {
   componentDidMount = () => {
     this.fetchComments()
   }
+render() {
 
-  render() {
     return (
       <div className="comments-body">
+
+        {/* isLoading && <Loading /> è un modo compatto per dire:
+            "SE isLoading è true, mostra <Loading />, altrimenti non mostrare niente".
+            In JavaScript, se la parte a sinistra di && è false, l'espressione
+            si ferma lì e non valuta/mostra la parte a destra */}
         {this.state.isLoading && <Loading />}
+
+        {/* Stessa identica logica, ma per l'errore */}
         {this.state.isError && <Error />}
+
         {/* Passiamo fetchComments ad AddComment: dopo un invio riuscito,
             AddComment la richiamerà per aggiornare subito la lista */}
         <AddComment
           imdbID={this.props.imdbID}
+          // onCommentAdded={this.fetchComments} NON esegue fetchComments adesso:
+          // passa la FUNZIONE stessa (senza chiamarla con le parentesi) ad AddComment,
+          // che potrà eseguirla lui quando vorrà (cioè dopo un invio riuscito)
           onCommentAdded={this.fetchComments}
         />
+
         <CommentList
+          // Passiamo giù l'array vero e proprio (i dati)
           commentsToShow={this.state.comments}
+          // Stesso meccanismo di sopra, ma per la cancellazione:
+          // CommentList la girerà a sua volta a ogni SingleComment
           onCommentDeleted={this.fetchComments}
         />
       </div>

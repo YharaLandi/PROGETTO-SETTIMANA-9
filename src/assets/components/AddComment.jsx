@@ -2,6 +2,7 @@ import { Component } from 'react'
 import { Button, Form } from 'react-bootstrap'
 
 class AddComment extends Component {
+  //Costruiamo la struttura del commento con lo state
   state = {
     comment: {
       comment: '',
@@ -26,6 +27,12 @@ class AddComment extends Component {
       )
       if (response.ok) {
         alert('Che la Forza sia con questo commento')
+        // Dopo un invio riuscito, dobbiamo "svuotare" il form per il prossimo commento.
+  // this.setState() è il modo in cui un componente a classe aggiorna il proprio state:
+  // gli passiamo un nuovo oggetto "comment" con i valori di partenza (testo vuoto, rate 1),
+  // e React si occupa di ridisegnare la UI con questi nuovi valori.
+  // non stiamo modificando lo state esistente a mano, lo stiamo SOSTITUENDO
+  // con un oggetto nuovo 
         this.setState({
           comment: {
             comment: '',
@@ -72,6 +79,12 @@ class AddComment extends Component {
               placeholder="Write your comment"
               className="comment-input"
               value={this.state.comment.comment}
+              // Ogni volta che si scrive un carattere, il browser genera un evento "change".
+  // e.target.value è il testo attuale dentro la casella (compreso quello che appena scritto).
+  // Chiamiamo di nuovo this.setState() per aggiornare lo state con il nuovo testo:
+  // React ridisegna la casella con value={this.state.comment.comment} aggiornato,
+  // così quello che vedi scritto è sempre "sincronizzato" con lo state, non con
+  // un comportamento naturale del browser (per questo si chiama "controlled input")
               onChange={(e) =>
                 this.setState({
                   comment: {
